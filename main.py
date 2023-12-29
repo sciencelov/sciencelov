@@ -3,7 +3,8 @@
 import pygame
 from pathlib import Path
 import sys
-from ball_simulation import Ball
+from ball_simulation import Ball  # Make sure to import check_collision
+
 
 # Initialize PyGame
 pygame.init()
@@ -27,7 +28,7 @@ running = True
 # Parse command-line arguments to determine the number of balls and their properties
 num_balls = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 balls = [
-    Ball(100 + i * 50, 150, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
+    Ball(100 + i * 50, 150+i*50, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
 ]
 
 # Main event loop
@@ -45,8 +46,13 @@ while running:
     screen.blit(bg, (0, 0))  # redraws background image
 
     # Update and draw all balls
-    for ball in balls:
+    for i, ball in enumerate(balls):
         ball.update_position(GRAVITY_Y, DT, screen)
+
+        # Check for collisions with other balls
+        for other_ball in balls[i + 1:]:
+            if ball.check_collision(other_ball):
+                ball.resolve_collision(other_ball)
 
     pygame.display.flip()  # Update the display of the full screen
     clock.tick(60)  # Cap the frame rate at 60 frames per second
@@ -54,3 +60,4 @@ while running:
 # End of the main loop
 pygame.quit()  # Close Pygame
 sys.exit()  # Exit the script
+
