@@ -9,12 +9,17 @@ class Ball:
         self.vy = vy
         self.radius = radius
         self.color = color
+        self.friction = 0.98  # Adjust the friction factor as needed
 
     def update_position(self, gravity_y, dt, screen, balls=None):
         self.vy = self.vy + gravity_y * dt
 
         if self.y >= screen.get_height():
             self.vy = self.vy * (-1)
+
+        # Apply air friction
+        self.vx *= self.friction
+        self.vy *= self.friction
 
         self.y = self.y + self.vy * dt + 0.5 * gravity_y * dt**2
         self.x = self.x + self.vx * dt
@@ -57,8 +62,3 @@ class Ball:
         self.vy += impulse * collision_normal[1] / self.radius
         ball.vx -= impulse * collision_normal[0] / ball.radius
         ball.vy -= impulse * collision_normal[1] / ball.radius
-
-
-    
-
-

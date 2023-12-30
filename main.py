@@ -28,7 +28,7 @@ running = True
 # Parse command-line arguments to determine the number of balls and their properties
 num_balls = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 balls = [
-    Ball(100 + i * 50, 150+i*50, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
+    Ball(100 + i * 70, 150+i*10, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
 ]
 
 # Main event loop
