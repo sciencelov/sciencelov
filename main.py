@@ -3,7 +3,7 @@
 import pygame
 from pathlib import Path
 import sys
-from ball_simulation import Ball  # Make sure to import check_collision
+from ball_simulation import Ball, Square  # Make sure to import check_collision
 
 
 # Initialize PyGame
@@ -38,8 +38,12 @@ vertical_distance = 70
 
 # Create a list of Ball objects with vertical spacing
 balls = [
-    Ball(initial_x, initial_y + i * vertical_distance, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
+    #Square(initial_x, initial_y + i * vertical_distance, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
+    Square(200,200, 0,0,0,( 200,200, 200)),
+    Ball(200, 100, 0,0,30,(200, 0, 0))
+
 ]
+
 
 
 # Main event loop
