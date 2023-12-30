@@ -49,7 +49,14 @@ class Ball:
         # Calculate collision normal
         collision_normal = [ball.x - self.x, ball.y - self.y]
         magnitude = math.sqrt(collision_normal[0]**2 + collision_normal[1]**2)
-        collision_normal = [collision_normal[0] / magnitude, collision_normal[1] / magnitude]
+
+        # Check if magnitude is non-zero before dividing
+        if magnitude != 0:
+            collision_normal = [collision_normal[0] / magnitude, collision_normal[1] / magnitude]
+        else:
+            # Handle the case where magnitude is zero
+            # For example, set a default collision_normal or skip the collision resolution
+            return
 
         # Calculate relative velocity
         relative_velocity = [ball.vx - self.vx, ball.vy - self.vy]
@@ -58,7 +65,10 @@ class Ball:
         impulse = 2 * (relative_velocity[0] * collision_normal[0] + relative_velocity[1] * collision_normal[1]) / (1 / self.radius + 1 / ball.radius)
 
         # Update velocities
-        self.vx += impulse * collision_normal[0] / self.radius
-        self.vy += impulse * collision_normal[1] / self.radius
-        ball.vx -= impulse * collision_normal[0] / ball.radius
-        ball.vy -= impulse * collision_normal[1] / ball.radius
+       # Update velocities with negative impulse
+        self.vx -= impulse * collision_normal[0] / self.radius
+        self.vy -= impulse * collision_normal[1] / self.radius
+        ball.vx += impulse * collision_normal[0] / ball.radius
+        ball.vy += impulse * collision_normal[1] / ball.radius
+
+

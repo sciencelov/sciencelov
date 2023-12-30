@@ -25,11 +25,22 @@ clock = pygame.time.Clock()
 # Setup 
 running = True
 
-# Parse command-line arguments to determine the number of balls and their properties
+# Parse the command line argument for the number of balls
 num_balls = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+num_balls = 3
+
+# Set the initial position for the first ball
+initial_x = 100
+initial_y = 150
+
+# Set the vertical distance between each ball
+vertical_distance = 70
+
+# Create a list of Ball objects with vertical spacing
 balls = [
-    Ball(100 + i * 70, 150+i*10, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
+    Ball(initial_x, initial_y + i * vertical_distance, 0, 0, 30, (35, 161, 224)) for i in range(num_balls)
 ]
+
 
 # Main event loop
 while running:
